@@ -12,6 +12,7 @@ public partial class MainViewModel : ObservableObject
     private readonly IAnalyticsService _analytics;
     private readonly IAudioMonitorService _audioMonitor;
     private readonly IAlertCoordinatorService _alertCoordinator;
+    private readonly IScreenMonitorService _screenMonitor;
 
     [ObservableProperty]
     private bool _isMonitoring;
@@ -33,18 +34,21 @@ public partial class MainViewModel : ObservableObject
         ISettingsService settings,
         IAnalyticsService analytics,
         IAudioMonitorService audioMonitor,
-        IAlertCoordinatorService alertCoordinator)
+        IAlertCoordinatorService alertCoordinator,
+        IScreenMonitorService screenMonitor)
     {
         _database = database;
         _settings = settings;
         _analytics = analytics;
         _audioMonitor = audioMonitor;
         _alertCoordinator = alertCoordinator;
+        _screenMonitor = screenMonitor;
 
         // Subscribe to events
         _audioMonitor.KeywordDetected += OnKeywordDetected;
         _audioMonitor.MonitoringStateChanged += OnMonitoringStateChanged;
         _alertCoordinator.AlertTriggered += OnAlertTriggered;
+        _screenMonitor.SessionUpdated += OnScreenSessionUpdated;
     }
 
     public async Task InitializeAsync()
@@ -82,12 +86,17 @@ public partial class MainViewModel : ObservableObject
             StatusMessage = "מאזין...";
             await _analytics.LogEventAsync("monitoring_started");
             await _settings.SetMonitoringEnabledAsync(true);
+
+            // Also start screen monitoring
+            await _screenMonitor.StartMonitoringAsync();
         }
     }
 
     private async Task StopMonitoringAsync()
     {
         await _audioMonitor.StopMonitoringAsync();
+        await _screenMonitor.StopMonitoringAsync();
+
         IsMonitoring = false;
         StatusMessage = "נעצר";
         await _analytics.LogEventAsync("monitoring_stopped");
@@ -128,6 +137,12 @@ public partial class MainViewModel : ObservableObject
         DetectionCount = 0;
 
         // Refresh stats
+        await LoadTodayStatsAsync();
+    }
+
+    private async void OnScreenSessionUpdated(object? sender, ScreenTimeSession e)
+    {
+        // Update today's screen time display
         await LoadTodayStatsAsync();
     }
 

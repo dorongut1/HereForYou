@@ -41,6 +41,7 @@ public static class MauiProgram
 		services.AddSingleton<IAlertCoordinatorService, AlertCoordinatorService>();
 		services.AddSingleton<INotificationService, NotificationService>();
 		services.AddSingleton<IAudioMonitorService, MockAudioMonitorService>();
+		services.AddSingleton<IScreenMonitorService, ScreenMonitorService>();
 
 		// ViewModels - Transient
 		services.AddTransient<ViewModels.MainViewModel>();

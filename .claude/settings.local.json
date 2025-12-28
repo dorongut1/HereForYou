@@ -21,7 +21,8 @@
       "Bash(mv:*)",
       "Bash(mkdir:*)",
       "Bash(dotnet new:*)",
-      "Bash(dotnet sln add:*)"
+      "Bash(dotnet sln add:*)",
+      "Bash(dotnet sln:*)"
     ]
   }
 }

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HereForYou.ViewModels"
+             x:Class="HereForYou.MainPage"
+             x:DataType="vm:MainViewModel"
+             Title="כאן בשבילך"
+             FlowDirection="RightToLeft">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="20">
+
+            <!-- כותרת -->
+            <Label
+                Text="👂 כאן בשבילך"
+                FontSize="32"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <!-- סטטוס -->
+            <Frame
+                BackgroundColor="{StaticResource Primary}"
+                CornerRadius="10"
+                Padding="20"
+                Margin="0,10,0,0">
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="{Binding StatusMessage}"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        TextColor="White" />
+
+                    <Label
+                        Text="{Binding DetectionCount, StringFormat='זיהויים אחרונים: {0}'}"
+                        FontSize="16"
+                        HorizontalOptions="Center"
+                        TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- כפתור הפעלה/כיבוי -->
+            <Button
+                Text="{Binding IsMonitoring, Converter={StaticResource BoolToTextConverter}}"
+                Command="{Binding ToggleMonitoringCommand}"
+                HeightRequest="60"
+                FontSize="18"
+                Margin="0,10,0,0" />
+
+            <!-- סטטיסטיקות היום -->
+            <Frame
+                BackgroundColor="#F5F5F5"
+                CornerRadius="10"
+                Padding="15"
+                Margin="0,20,0,0">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+
+                    <!-- זמן מסך -->
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                        <Label
+                            Text="📱"
+                            FontSize="32"
+                            HorizontalOptions="Center" />
+                        <Label
+                            Text="{Binding TodayScreenTime}"
+                            FontSize="24"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center" />
+                        <Label
+                            Text="זמן מסך היום"
+                            FontSize="12"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <!-- זיהויים -->
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                        <Label
+                            Text="👂"
+                            FontSize="32"
+                            HorizontalOptions="Center" />
+                        <Label
+                            Text="{Binding TodayDetections}"
+                            FontSize="24"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center" />
+                        <Label
+                            Text="פניות היום"
+                            FontSize="12"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                </Grid>
+            </Frame>
+
+            <!-- הסבר -->
+            <Label
+                Text="האפליקציה מאזינה למילות המפתח 'אמא' ו'אבא' ומתריעה אחרי 3 זיהויים תוך 30 שניות."
+                FontSize="14"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Margin="0,20,0,0"
+                TextColor="{StaticResource Gray600}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

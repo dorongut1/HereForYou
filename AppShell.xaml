@@ -4,11 +4,31 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:HereForYou"
-    Title="HereForYou">
+    xmlns:views="clr-namespace:HereForYou.Views"
+    Title="HereForYou"
+    FlowDirection="RightToLeft">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="ראשי" Icon="home.png">
+            <ShellContent
+                Title="ראשי"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" />
+        </Tab>
+
+        <Tab Title="תובנות" Icon="chart.png">
+            <ShellContent
+                Title="תובנות"
+                ContentTemplate="{DataTemplate views:InsightsPage}"
+                Route="InsightsPage" />
+        </Tab>
+
+        <Tab Title="הגדרות" Icon="settings.png">
+            <ShellContent
+                Title="הגדרות"
+                ContentTemplate="{DataTemplate views:SettingsPage}"
+                Route="SettingsPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>

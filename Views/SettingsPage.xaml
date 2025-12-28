@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HereForYou.ViewModels"
+             x:Class="HereForYou.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Title="הגדרות"
+             FlowDirection="RightToLeft">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- כותרת -->
+            <Label Text="⚙️ הגדרות" FontSize="28" FontAttributes="Bold" />
+
+            <!-- הגדרות זיהוי -->
+            <Frame BackgroundColor="#F5F5F5" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="הגדרות זיהוי" FontSize="18" FontAttributes="Bold" />
+
+                    <!-- Detection Threshold -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="{Binding DetectionThreshold, StringFormat='סף זיהוי: {0} פעמים'}" />
+                        <Slider Minimum="1" Maximum="10"
+                                Value="{Binding DetectionThreshold}"
+                                MinimumTrackColor="{StaticResource Primary}" />
+                    </VerticalStackLayout>
+
+                    <!-- Threshold Window -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="{Binding ThresholdWindowSeconds, StringFormat='חלון זמן: {0} שניות'}" />
+                        <Slider Minimum="10" Maximum="120"
+                                Value="{Binding ThresholdWindowSeconds}"
+                                MinimumTrackColor="{StaticResource Primary}" />
+                    </VerticalStackLayout>
+
+                    <!-- Confidence Threshold -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="{Binding ConfidenceThreshold, StringFormat='רמת ביטחון: {0:P0}'}" />
+                        <Slider Minimum="0.5" Maximum="1"
+                                Value="{Binding ConfidenceThreshold}"
+                                MinimumTrackColor="{StaticResource Primary}" />
+                    </VerticalStackLayout>
+
+                    <!-- Keywords -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="מילות מפתח (מופרדות בפסיק):" />
+                        <Entry Text="{Binding Keywords}"
+                               Placeholder="אמא, אבא, שם הילד"
+                               FlowDirection="RightToLeft" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- הגדרות התראות -->
+            <Frame BackgroundColor="#F5F5F5" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="הגדרות התראות" FontSize="18" FontAttributes="Bold" />
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Switch IsToggled="{Binding EnableOverlayAlerts}" />
+                        <Label Text="התראות על המסך" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Switch IsToggled="{Binding EnableSoundAlerts}" />
+                        <Label Text="התראות קוליות" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Switch IsToggled="{Binding EnableVibration}" />
+                        <Label Text="רטט" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- הגדרות אישיות -->
+            <Frame BackgroundColor="#F5F5F5" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="הגדרות אישיות" FontSize="18" FontAttributes="Bold" />
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="שם המשתמש:" />
+                        <Entry Text="{Binding UserName}"
+                               Placeholder="הכנס את שמך"
+                               FlowDirection="RightToLeft" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- כפתורי פעולה -->
+            <Button Text="💾 שמור הגדרות"
+                    Command="{Binding SaveSettingsCommand}"
+                    Margin="0,10,0,0" />
+
+            <Button Text="🔄 אפס לברירת מחדל"
+                    Command="{Binding ResetToDefaultsCommand}"
+                    BackgroundColor="{StaticResource Gray300}"
+                    TextColor="{StaticResource Gray900}" />
+
+            <Button Text="🗑️ נקה נתונים ישנים"
+                    Command="{Binding ClearAllDataCommand}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    TextColor="White"
+                    Margin="0,0,0,20" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

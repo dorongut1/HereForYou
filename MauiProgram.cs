@@ -42,9 +42,13 @@ public static class MauiProgram
 
 		// ViewModels - Transient
 		services.AddTransient<ViewModels.MainViewModel>();
+		services.AddTransient<ViewModels.SettingsViewModel>();
+		services.AddTransient<ViewModels.InsightsViewModel>();
 
 		// Pages - Transient (new instance each time)
 		services.AddTransient<MainPage>();
+		services.AddTransient<Views.SettingsPage>();
+		services.AddTransient<Views.InsightsPage>();
 
 		// Initialize database on startup
 		var serviceProvider = services.BuildServiceProvider();

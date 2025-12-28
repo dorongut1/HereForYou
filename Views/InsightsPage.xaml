@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HereForYou.ViewModels"
+             xmlns:models="clr-namespace:HereForYou.Models"
+             x:Class="HereForYou.Views.InsightsPage"
+             x:DataType="vm:InsightsViewModel"
+             Title="תובנות"
+             FlowDirection="RightToLeft">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- כותרת -->
+            <Label Text="📊 תובנות וסטטיסטיקות" FontSize="28" FontAttributes="Bold" />
+
+            <!-- כפתור רענון -->
+            <Button Text="🔄 רענן"
+                    Command="{Binding RefreshCommand}"
+                    HorizontalOptions="End"
+                    WidthRequest="100" />
+
+            <!-- סטטיסטיקות היום -->
+            <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📅 היום" FontSize="20" FontAttributes="Bold" TextColor="White" />
+
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="⏱️" FontSize="24" HorizontalOptions="Center" TextColor="White" />
+                            <Label Text="{Binding TodayScreenTime}" FontSize="18" FontAttributes="Bold"
+                                   HorizontalOptions="Center" TextColor="White" />
+                            <Label Text="זמן מסך" FontSize="12" HorizontalOptions="Center" TextColor="White" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="👂" FontSize="24" HorizontalOptions="Center" TextColor="White" />
+                            <Label Text="{Binding TodayDetections}" FontSize="18" FontAttributes="Bold"
+                                   HorizontalOptions="Center" TextColor="White" />
+                            <Label Text="זיהויים" FontSize="12" HorizontalOptions="Center" TextColor="White" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="2">
+                            <Label Text="🔔" FontSize="24" HorizontalOptions="Center" TextColor="White" />
+                            <Label Text="{Binding TodayAlerts}" FontSize="18" FontAttributes="Bold"
+                                   HorizontalOptions="Center" TextColor="White" />
+                            <Label Text="התראות" FontSize="12" HorizontalOptions="Center" TextColor="White" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- סטטיסטיקות שבוע -->
+            <Frame BackgroundColor="#F5F5F5" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📈 שבוע אחרון" FontSize="20" FontAttributes="Bold" />
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="15" RowSpacing="15">
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="⏱️" FontSize="20" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekScreenTime}" FontSize="16" FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                            <Label Text="סה״כ זמן מסך" FontSize="11" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                            <Label Text="👂" FontSize="20" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDetections}" FontSize="16" FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                            <Label Text="סה״כ זיהויים" FontSize="11" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Label Text="✅" FontSize="20" HorizontalOptions="Center" />
+                            <Label Text="{Binding ResponseRate, StringFormat='{0:F1}%'}" FontSize="16" FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                            <Label Text="אחוז מענה" FontSize="11" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- סיכומים יומיים -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="📋 סיכומים יומיים" FontSize="18" FontAttributes="Bold" />
+
+                <CollectionView ItemsSource="{Binding RecentSummaries}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DailySummary">
+                            <Frame Margin="0,5" Padding="10" CornerRadius="8" BackgroundColor="#F9F9F9">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                    <Label Grid.Column="0" Text="{Binding Date, StringFormat='{0:dd/MM}'}"
+                                           FontSize="14" FontAttributes="Bold" VerticalOptions="Center" />
+
+                                    <VerticalStackLayout Grid.Column="1">
+                                        <Label Text="{Binding TotalScreenTime, StringFormat='⏱️ {0:hh\\:mm}'}"
+                                               FontSize="12" />
+                                        <Label Text="{Binding TotalDetections, StringFormat='👂 {0} זיהויים'}"
+                                               FontSize="12" />
+                                    </VerticalStackLayout>
+
+                                    <Label Grid.Column="2"
+                                           Text="{Binding ResponseRate, StringFormat='✅ {0:F0}%'}"
+                                           FontSize="12" VerticalOptions="Center" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- זיהויים אחרונים -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="🕐 זיהויים אחרונים" FontSize="18" FontAttributes="Bold" />
+
+                <CollectionView ItemsSource="{Binding RecentDetections}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DetectionEvent">
+                            <Frame Margin="0,3" Padding="8" CornerRadius="6" BackgroundColor="#FAFAFA">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}"
+                                           FontSize="12" VerticalOptions="Center" />
+
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Keyword}"
+                                           FontSize="12" FontAttributes="Bold" VerticalOptions="Center" />
+
+                                    <Label Grid.Column="2"
+                                           Text="{Binding WasRespondedTo, Converter={StaticResource BoolToTextConverter}}"
+                                           FontSize="11" VerticalOptions="Center"
+                                           TextColor="{StaticResource Primary}" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

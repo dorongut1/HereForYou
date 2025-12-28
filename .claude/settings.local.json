@@ -22,7 +22,10 @@
       "Bash(mkdir:*)",
       "Bash(dotnet new:*)",
       "Bash(dotnet sln add:*)",
-      "Bash(dotnet sln:*)"
+      "Bash(dotnet sln:*)",
+      "Bash(dir:*)",
+      "Bash(dotnet publish:*)",
+      "Bash(dotnet run:*)"
     ]
   }
 }

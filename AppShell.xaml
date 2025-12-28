@@ -9,21 +9,21 @@
     FlowDirection="RightToLeft">
 
     <TabBar>
-        <Tab Title="ראשי" Icon="home.png">
+        <Tab Title="ראשי">
             <ShellContent
                 Title="ראשי"
                 ContentTemplate="{DataTemplate local:MainPage}"
                 Route="MainPage" />
         </Tab>
 
-        <Tab Title="תובנות" Icon="chart.png">
+        <Tab Title="תובנות">
             <ShellContent
                 Title="תובנות"
                 ContentTemplate="{DataTemplate views:InsightsPage}"
                 Route="InsightsPage" />
         </Tab>
 
-        <Tab Title="הגדרות" Icon="settings.png">
+        <Tab Title="הגדרות">
             <ShellContent
                 Title="הגדרות"
                 ContentTemplate="{DataTemplate views:SettingsPage}"

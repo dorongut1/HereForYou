@@ -106,34 +106,41 @@
 
 ## 🚀 איך להריץ
 
-### דרישות מקדימות
-```bash
-# התקנת .NET 10 SDK
-winget install Microsoft.DotNet.SDK.10
+### 📖 מדריכים מפורטים
 
-# התקנת MAUI workload
-dotnet workload install maui
-```
+- **[INSTALL.md](INSTALL.md)** - התקנה והרצה על Windows
+- **[INSTALL_EMULATOR_STEP_BY_STEP.md](INSTALL_EMULATOR_STEP_BY_STEP.md)** - התקנת Android Emulator (מומלץ!)
+- **[ANDROID_SETUP.md](ANDROID_SETUP.md)** - אפשרויות פריסה ל-Android
+- **[QUICK_ANDROID_GUIDE.md](QUICK_ANDROID_GUIDE.md)** - מדריך מהיר לAndroid
 
-### בניה והרצה
+### הרצה מהירה על Windows
+
 ```bash
 # Clone the repository
 git clone https://github.com/dorongut1/HereForYou.git
 cd HereForYou
 
-# Restore packages
-dotnet restore
-
-# Build
-dotnet build -f net10.0-windows10.0.19041.0
-
-# Run
+# הרץ מקוד מקור
 dotnet run -f net10.0-windows10.0.19041.0
+
+# או הרץ את ה-EXE המוכן:
+.\bin\Release\net10.0-windows10.0.19041.0\win-x64\publish\HereForYou.exe
+```
+
+### הרצה על Android Emulator
+
+```bash
+# 1. התקן Android Studio והגדר emulator (ראה INSTALL_EMULATOR_STEP_BY_STEP.md)
+# 2. הפעל את ה-emulator
+# 3. הרץ:
+
+dotnet build -f net10.0-android
+dotnet run -f net10.0-android
 ```
 
 ### או ב-Visual Studio 2022
 1. פתח את `HereForYou.sln`
-2. בחר **Windows Machine** כ-target
+2. בחר Target: **Windows Machine** או **Android Emulator**
 3. לחץ **F5** להרצה
 
 ---
